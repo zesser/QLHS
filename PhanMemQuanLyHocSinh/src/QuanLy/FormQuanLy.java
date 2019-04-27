@@ -36,6 +36,8 @@ public class FormQuanLy extends javax.swing.JFrame {
     public FormQuanLy() {
         initComponents();
         this.getContentPane().setSize(1100, 800);
+        dtbBang = (DefaultTableModel)this.tbBang.getModel();
+        
         loadPage();
 
 
@@ -82,9 +84,6 @@ public class FormQuanLy extends javax.swing.JFrame {
         pGt = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jfGioiTinh = new javax.swing.JTextField();
-        pGVCN = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jfGVCN = new javax.swing.JTextField();
         pTenLop = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jfLop = new javax.swing.JTextField();
@@ -105,6 +104,9 @@ public class FormQuanLy extends javax.swing.JFrame {
         pBangHS = new javax.swing.JPanel();
         spBang = new javax.swing.JScrollPane();
         tbBang = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -122,6 +124,8 @@ public class FormQuanLy extends javax.swing.JFrame {
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        pNutLenh.setBackground(new java.awt.Color(255, 0, 255));
 
         jButton6.setText("Thêm Học Sinh");
         pNutLenh.add(jButton6);
@@ -209,6 +213,7 @@ public class FormQuanLy extends javax.swing.JFrame {
 
         getContentPane().add(pTop, java.awt.BorderLayout.NORTH);
 
+        pChiTietHocSinh.setForeground(new java.awt.Color(204, 255, 204));
         pChiTietHocSinh.setLayout(new java.awt.GridLayout(0, 1));
 
         tfMaHS.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -254,7 +259,7 @@ public class FormQuanLy extends javax.swing.JFrame {
         pTenHSLayout.setVerticalGroup(
             pTenHSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pTenHSLayout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+                .addContainerGap(36, Short.MAX_VALUE)
                 .addGroup(pTenHSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jfHoten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -284,36 +289,10 @@ public class FormQuanLy extends javax.swing.JFrame {
                 .addGroup(pGtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jfGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pChiTietHocSinh.add(pGt);
-
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel5.setText("Giáo viên chủ nhiệm:");
-
-        javax.swing.GroupLayout pGVCNLayout = new javax.swing.GroupLayout(pGVCN);
-        pGVCN.setLayout(pGVCNLayout);
-        pGVCNLayout.setHorizontalGroup(
-            pGVCNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pGVCNLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jfGVCN, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
-        );
-        pGVCNLayout.setVerticalGroup(
-            pGVCNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pGVCNLayout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(pGVCNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jfGVCN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44))
-        );
-
-        pChiTietHocSinh.add(pGVCN);
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel7.setText("Lớp:");
@@ -336,7 +315,7 @@ public class FormQuanLy extends javax.swing.JFrame {
                 .addGroup(pTenLopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jfLop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pChiTietHocSinh.add(pTenLop);
@@ -362,7 +341,7 @@ public class FormQuanLy extends javax.swing.JFrame {
                 .addGroup(pNgaysinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jfNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pChiTietHocSinh.add(pNgaysinh);
@@ -393,7 +372,7 @@ public class FormQuanLy extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(pDiachiLayout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 13, Short.MAX_VALUE)))
+                        .addGap(0, 25, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -426,6 +405,9 @@ public class FormQuanLy extends javax.swing.JFrame {
 
         getContentPane().add(pChiTietHocSinh, java.awt.BorderLayout.EAST);
 
+        pBangHS.setForeground(new java.awt.Color(255, 255, 51));
+        pBangHS.setLayout(new java.awt.BorderLayout());
+
         spBang.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         spBang.setToolTipText("");
         spBang.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -441,21 +423,27 @@ public class FormQuanLy extends javax.swing.JFrame {
                 "Mã Học Sinh", "Tên Học Sinh", "Giới tính", "Ngày sinh"
             }
         ));
+        tbBang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbBangMouseClicked(evt);
+            }
+        });
         spBang.setViewportView(tbBang);
 
-        javax.swing.GroupLayout pBangHSLayout = new javax.swing.GroupLayout(pBangHS);
-        pBangHS.setLayout(pBangHSLayout);
-        pBangHSLayout.setHorizontalGroup(
-            pBangHSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(spBang, javax.swing.GroupLayout.DEFAULT_SIZE, 766, Short.MAX_VALUE)
-        );
-        pBangHSLayout.setVerticalGroup(
-            pBangHSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pBangHSLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(spBang, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        pBangHS.add(spBang, java.awt.BorderLayout.CENTER);
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel11.setText("Giáo viên chủ nhiệm: ");
+        jPanel2.add(jLabel11);
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jTextField1);
+
+        pBangHS.add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         getContentPane().add(pBangHS, java.awt.BorderLayout.CENTER);
 
@@ -488,7 +476,7 @@ public class FormQuanLy extends javax.swing.JFrame {
                     cbKhoi.addItem(rskhoi.getString(1));
             }
             rskhoi.close();
-            pst.cancel();
+           
             } catch (SQLException ex) {
                 Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -530,8 +518,7 @@ public class FormQuanLy extends javax.swing.JFrame {
     }//GEN-LAST:event_cbKhoiActionPerformed
 
     private void cbLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLopActionPerformed
-//        if(tbBang.getRowCount()!=0)
-//            tbBang.removeRowSelectionInterval(1, tbBang.getRowCount());
+        dtbBang.setRowCount(0);
         if(cbLop.getSelectedIndex() != -1){
             String tenlop = cbLop.getSelectedItem().toString();
             String sql = "select MAHOCSINH, TENHOCSINH, GIOITINH, NGAYSINH from LOP, HOCSINH WHERE HOCSINH.MALOP = LOP.MALOP AND TENLOP = N'" + tenlop +"'";
@@ -539,20 +526,54 @@ public class FormQuanLy extends javax.swing.JFrame {
                 pst = conn.createStatement();
                 ResultSet rshs;
                 rshs = pst.executeQuery(sql); 
-                DefaultTableModel ta = new DefaultTableModel();
+                
                 while(rshs.next()){
-                    String t[] = {"","","",""};
-                    ta.addRow(t);
+                    Vector<String> ta = new Vector<String>();
+                    ta.add(rshs.getString(1));
+                    ta.add(rshs.getString(2));
+                    ta.add(rshs.getString(3));
+                    ta.add(rshs.getString(4));
+                    dtbBang.addRow(ta);
             }
             rshs.close();
             pst.cancel();
-            loadBang(ta);
             }catch (SQLException ex) {
                     Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
     }//GEN-LAST:event_cbLopActionPerformed
+
+    private void tbBangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbBangMouseClicked
+        String mahs;
+        if(tbBang.getSelectedRow()== -1)
+            return;
+        mahs = (String) dtbBang.getValueAt(tbBang.getSelectedRow(), 0);
+        jfMaHS.setText(mahs);
+        jfHoten.setText((String) dtbBang.getValueAt(tbBang.getSelectedRow(), 1));
+        jfGioiTinh.setText((String) dtbBang.getValueAt(tbBang.getSelectedRow(), 2));
+        jfNgaySinh.setText((String) dtbBang.getValueAt(tbBang.getSelectedRow(), 3));
+        jfLop.setText(cbLop.getSelectedItem().toString());
+        String sql = "select DIACHI from HOCSINH WHERE MAHOCSINH = N'" + mahs +"'";
+            try {
+                pst = conn.createStatement();
+                ResultSet rshs;
+                rshs = pst.executeQuery(sql);     
+                while(rshs.next()){
+                    
+                    taDiaChi.setText(rshs.getString(1));
+            }
+            rshs.close();
+            pst.cancel();
+            }catch (SQLException ex) {
+                    Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+    }//GEN-LAST:event_tbBangMouseClicked
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -609,17 +630,18 @@ public class FormQuanLy extends javax.swing.JFrame {
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jfGVCN;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jfGioiTinh;
     private javax.swing.JTextField jfHoten;
     private javax.swing.JTextField jfLop;
@@ -628,7 +650,6 @@ public class FormQuanLy extends javax.swing.JFrame {
     private javax.swing.JPanel pBangHS;
     private javax.swing.JPanel pChiTietHocSinh;
     private javax.swing.JPanel pDiachi;
-    private javax.swing.JPanel pGVCN;
     private javax.swing.JPanel pGt;
     private javax.swing.JPanel pHeDaoTao;
     private javax.swing.JPanel pKhoi;
@@ -657,7 +678,6 @@ public class FormQuanLy extends javax.swing.JFrame {
     }
 
     private void loadPage(){
-        
         String dbURL = "jdbc:sqlserver://Localhost;databaseName=QL_DSTRUONGHOC;user=sa;password=sa";
         try {
                 conn = getConnection(dbURL);
@@ -690,7 +710,7 @@ public class FormQuanLy extends javax.swing.JFrame {
                     cbKhoi.addItem(rskhoi.getString(1));
             }
             rskhoi.close();
-            
+            pst.cancel();
             chonhe = true;
             }catch (SQLException ex) {
                 Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
@@ -698,13 +718,7 @@ public class FormQuanLy extends javax.swing.JFrame {
         }
         return kq;
     }
-    private boolean ktChonKhoi(boolean t){
-        boolean kq = false;
-        if(t == false){
-            
-        }
-        return kq;
-    }
+    
     public static Connection getConnection(String dbURL) {
         Connection conn = null;
         try {
