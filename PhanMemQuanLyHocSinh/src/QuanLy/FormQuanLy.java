@@ -22,29 +22,37 @@ import java.util.ArrayList;
  * @author USER
  */
 public class FormQuanLy extends javax.swing.JFrame {
+    ArrayList<HocSinh> dshs;
     DefaultTableModel dtbBang;
     Connection conn;
     Statement pst = null;
-    boolean end = false;
-    boolean chonhe = false;
-    boolean chonkhoi = false;
-    boolean chonlop = false;
+    PreparedStatement pre;
+    String he;
+    String ma;
+    boolean showCT = true; 
+    
     
     /**
      * Creates new form FormQuanLy
      */
     public FormQuanLy() {
         initComponents();
+        dshs = new ArrayList<HocSinh>();
+        this.setLocationRelativeTo(null);
         this.getContentPane().setSize(1100, 800);
         dtbBang = (DefaultTableModel)this.tbBang.getModel();
-        
         loadPage();
-
-
-        
         
     }
-
+    public FormQuanLy(String t) {
+        he = t;
+        initComponents();
+        this.getContentPane().setSize(1100, 800);
+        dtbBang = (DefaultTableModel)this.tbBang.getModel();
+        this.setLocationRelativeTo(null);
+        loadPage();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,26 +62,55 @@ public class FormQuanLy extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jFrame1 = new javax.swing.JFrame();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
+        dlDiem = new javax.swing.JDialog();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jfHK1 = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jfHK2 = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        btNhapDiem = new javax.swing.JButton();
+        dlSearch = new javax.swing.JDialog();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jfSearchMa = new javax.swing.JTextField();
+        jPanel8 = new javax.swing.JPanel();
+        btTim = new javax.swing.JButton();
+        dlXemDiem = new javax.swing.JDialog();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jfXemHK1 = new javax.swing.JTextField();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jfXemHK2 = new javax.swing.JTextField();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jfDiemTK = new javax.swing.JTextField();
+        jPanel12 = new javax.swing.JPanel();
+        btSuaDiem = new javax.swing.JButton();
+        btLuuDiem = new javax.swing.JButton();
         pNutLenh = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        btThem = new javax.swing.JButton();
+        btHuy = new javax.swing.JButton();
+        btLuu = new javax.swing.JButton();
+        btXoa = new javax.swing.JButton();
         btThoat = new javax.swing.JButton();
         pTop = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        pTiTle = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        btBack = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        pHeDaoTao = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        cbHeDaoTao = new javax.swing.JComboBox<>();
-        pLop = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        cbLop = new javax.swing.JComboBox<>();
+        jPanel7 = new javax.swing.JPanel();
+        btSearch = new javax.swing.JButton();
+        pChonKhoiLop = new javax.swing.JPanel();
         pKhoi = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         cbKhoi = new javax.swing.JComboBox<>();
+        pLop = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        cbLop = new javax.swing.JComboBox<>();
         pChiTietHocSinh = new javax.swing.JPanel();
         pMaHS = new javax.swing.JPanel();
         tfMaHS = new javax.swing.JLabel();
@@ -96,45 +133,270 @@ public class FormQuanLy extends javax.swing.JFrame {
         taDiaChi = new javax.swing.JTextArea();
         pNutChitiet = new javax.swing.JPanel();
         btDiem = new javax.swing.JButton();
-        btChinhSua = new javax.swing.JButton();
-        btThem = new javax.swing.JButton();
-        Xóa = new javax.swing.JButton();
-        btSua = new javax.swing.JButton();
-        btLuu = new javax.swing.JButton();
+        btThemDiem = new javax.swing.JButton();
         pBangHS = new javax.swing.JPanel();
         spBang = new javax.swing.JScrollPane();
         tbBang = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        pGV = new javax.swing.JPanel();
+        pSX = new javax.swing.JPanel();
+        cbSapxep = new javax.swing.JComboBox<>();
 
-        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
-        jFrame1.getContentPane().setLayout(jFrame1Layout);
-        jFrame1Layout.setHorizontalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        dlDiem.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                dlDiemWindowActivated(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                dlDiemWindowClosing(evt);
+            }
+        });
+        dlDiem.getContentPane().setLayout(new java.awt.GridLayout(3, 1));
+
+        jLabel1.setText("Điểm HK1:");
+
+        jfHK1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jfHK1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(75, Short.MAX_VALUE))
         );
-        jFrame1Layout.setVerticalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                    .addComponent(jfHK1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
-        jCheckBox1.setText("jCheckBox1");
+        dlDiem.getContentPane().add(jPanel1);
 
-        jButton1.setText("jButton1");
+        jLabel5.setText("Điểm HK2:");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jfHK2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(75, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                    .addComponent(jfHK2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        dlDiem.getContentPane().add(jPanel2);
+
+        btNhapDiem.setText("Nhập điểm");
+        btNhapDiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNhapDiemActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(134, 134, 134)
+                .addComponent(btNhapDiem)
+                .addContainerGap(144, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btNhapDiem)
+                .addContainerGap())
+        );
+
+        dlDiem.getContentPane().add(jPanel3);
+
+        dlDiem.getAccessibleContext().setAccessibleParent(btThemDiem);
+
+        dlSearch.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                dlSearchWindowClosing(evt);
+            }
+        });
+        dlSearch.getContentPane().setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel11.setText("Nhập Mã học sinh ");
+        jPanel4.add(jLabel11);
+
+        jfSearchMa.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jfSearchMa.setPreferredSize(new java.awt.Dimension(100, 30));
+        jPanel4.add(jfSearchMa);
+
+        dlSearch.getContentPane().add(jPanel4);
+
+        btTim.setText("Tìm kiếm");
+        btTim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btTimActionPerformed(evt);
+            }
+        });
+        jPanel8.add(btTim);
+
+        dlSearch.getContentPane().add(jPanel8);
+
+        dlXemDiem.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                dlXemDiemWindowActivated(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                dlXemDiemWindowClosing(evt);
+            }
+        });
+        dlXemDiem.getContentPane().setLayout(new java.awt.GridLayout(4, 1));
+
+        jLabel12.setText("Điểm HK1:");
+
+        jfXemHK1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jfXemHK1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(75, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                    .addComponent(jfXemHK1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        dlXemDiem.getContentPane().add(jPanel9);
+
+        jLabel13.setText("Điểm HK2:");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jfXemHK2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(75, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                    .addComponent(jfXemHK2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        dlXemDiem.getContentPane().add(jPanel10);
+
+        jLabel14.setText("Điểm Tổng kết:");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jfDiemTK, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(75, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                    .addComponent(jfDiemTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        dlXemDiem.getContentPane().add(jPanel11);
+
+        btSuaDiem.setText("Chỉnh sửa");
+        btSuaDiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSuaDiemActionPerformed(evt);
+            }
+        });
+        jPanel12.add(btSuaDiem);
+
+        btLuuDiem.setText("Lưu");
+        btLuuDiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLuuDiemActionPerformed(evt);
+            }
+        });
+        jPanel12.add(btLuuDiem);
+
+        dlXemDiem.getContentPane().add(jPanel12);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         pNutLenh.setBackground(new java.awt.Color(255, 0, 255));
 
-        jButton6.setText("Thêm Học Sinh");
-        pNutLenh.add(jButton6);
+        btThem.setText("Thêm Học Sinh");
+        btThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btThemActionPerformed(evt);
+            }
+        });
+        pNutLenh.add(btThem);
 
-        jButton7.setText("Xóa Học Sinh");
-        pNutLenh.add(jButton7);
+        btHuy.setText("Hủy");
+        btHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btHuyActionPerformed(evt);
+            }
+        });
+        pNutLenh.add(btHuy);
 
-        jButton8.setText("Lưu");
-        pNutLenh.add(jButton8);
+        btLuu.setText("Lưu");
+        btLuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLuuActionPerformed(evt);
+            }
+        });
+        pNutLenh.add(btLuu);
+
+        btXoa.setText("Xóa Học Sinh");
+        btXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btXoaActionPerformed(evt);
+            }
+        });
+        pNutLenh.add(btXoa);
 
         btThoat.setText("Thoát");
         btThoat.addActionListener(new java.awt.event.ActionListener() {
@@ -149,52 +411,44 @@ public class FormQuanLy extends javax.swing.JFrame {
         pTop.setPreferredSize(new java.awt.Dimension(700, 75));
         pTop.setLayout(new java.awt.BorderLayout());
 
+        pTiTle.setLayout(new java.awt.BorderLayout());
+
+        btBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/QuanLyAnh/icon/backspace-arrow.png"))); // NOI18N
+        btBack.setText("Back");
+        btBack.setMaximumSize(new java.awt.Dimension(91, 39));
+        btBack.setMinimumSize(new java.awt.Dimension(91, 37));
+        btBack.setPreferredSize(new java.awt.Dimension(91, 32));
+        btBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBackActionPerformed(evt);
+            }
+        });
+        jPanel6.add(btBack);
+
+        pTiTle.add(jPanel6, java.awt.BorderLayout.WEST);
+
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(102, 102, 255));
         jLabel4.setText("PHẦN MỀM QUẢN LÝ HỌC SINH  ");
-        jPanel1.add(jLabel4);
+        jPanel5.add(jLabel4);
 
-        pTop.add(jPanel1, java.awt.BorderLayout.NORTH);
+        pTiTle.add(jPanel5, java.awt.BorderLayout.CENTER);
 
-        pHeDaoTao.setPreferredSize(new java.awt.Dimension(233, 68));
-
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel1.setText("Chọn Hệ Đào Tạo: ");
-        pHeDaoTao.add(jLabel1);
-
-        cbHeDaoTao.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cbHeDaoTaoMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                cbHeDaoTaoMouseEntered(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                cbHeDaoTaoMousePressed(evt);
-            }
-        });
-        cbHeDaoTao.addActionListener(new java.awt.event.ActionListener() {
+        btSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/QuanLyAnh/icon/magnifier-with-small-handle.png"))); // NOI18N
+        btSearch.setText("Search");
+        btSearch.setPreferredSize(new java.awt.Dimension(101, 32));
+        btSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbHeDaoTaoActionPerformed(evt);
+                btSearchActionPerformed(evt);
             }
         });
-        pHeDaoTao.add(cbHeDaoTao);
+        jPanel7.add(btSearch);
 
-        pTop.add(pHeDaoTao, java.awt.BorderLayout.LINE_START);
+        pTiTle.add(jPanel7, java.awt.BorderLayout.EAST);
 
-        pLop.setPreferredSize(new java.awt.Dimension(233, 68));
+        pTop.add(pTiTle, java.awt.BorderLayout.NORTH);
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel3.setText("Chọn Lớp: ");
-        pLop.add(jLabel3);
-
-        cbLop.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbLopActionPerformed(evt);
-            }
-        });
-        pLop.add(cbLop);
-
-        pTop.add(pLop, java.awt.BorderLayout.LINE_END);
+        pChonKhoiLop.setLayout(new java.awt.GridLayout(1, 0));
 
         pKhoi.setPreferredSize(new java.awt.Dimension(233, 68));
 
@@ -209,10 +463,28 @@ public class FormQuanLy extends javax.swing.JFrame {
         });
         pKhoi.add(cbKhoi);
 
-        pTop.add(pKhoi, java.awt.BorderLayout.CENTER);
+        pChonKhoiLop.add(pKhoi);
+
+        pLop.setPreferredSize(new java.awt.Dimension(233, 68));
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jLabel3.setText("Chọn Lớp: ");
+        pLop.add(jLabel3);
+
+        cbLop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbLopActionPerformed(evt);
+            }
+        });
+        pLop.add(cbLop);
+
+        pChonKhoiLop.add(pLop);
+
+        pTop.add(pChonKhoiLop, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(pTop, java.awt.BorderLayout.NORTH);
 
+        pChiTietHocSinh.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin chi tiết"));
         pChiTietHocSinh.setForeground(new java.awt.Color(204, 255, 204));
         pChiTietHocSinh.setLayout(new java.awt.GridLayout(0, 1));
 
@@ -254,16 +526,16 @@ public class FormQuanLy extends javax.swing.JFrame {
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jfHoten, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         pTenHSLayout.setVerticalGroup(
             pTenHSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pTenHSLayout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+                .addContainerGap(41, Short.MAX_VALUE)
                 .addGroup(pTenHSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jfHoten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25))
+                .addGap(42, 42, 42))
         );
 
         pChiTietHocSinh.add(pTenHS);
@@ -280,16 +552,16 @@ public class FormQuanLy extends javax.swing.JFrame {
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jfGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         pGtLayout.setVerticalGroup(
             pGtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pGtLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(29, 29, 29)
                 .addGroup(pGtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jfGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         pChiTietHocSinh.add(pGt);
@@ -306,16 +578,16 @@ public class FormQuanLy extends javax.swing.JFrame {
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jfLop, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         pTenLopLayout.setVerticalGroup(
             pTenLopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pTenLopLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(42, 42, 42)
                 .addGroup(pTenLopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jfLop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pChiTietHocSinh.add(pTenLop);
@@ -332,16 +604,16 @@ public class FormQuanLy extends javax.swing.JFrame {
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jfNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         pNgaysinhLayout.setVerticalGroup(
             pNgaysinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNgaysinhLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(34, 34, 34)
                 .addGroup(pNgaysinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jfNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pChiTietHocSinh.add(pNgaysinh);
@@ -362,44 +634,37 @@ public class FormQuanLy extends javax.swing.JFrame {
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         pDiachiLayout.setVerticalGroup(
             pDiachiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pDiachiLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(26, 26, 26)
                 .addGroup(pDiachiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(pDiachiLayout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 25, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         pChiTietHocSinh.add(pDiachi);
 
         btDiem.setText("Xem điểm");
-        pNutChitiet.add(btDiem);
-
-        btChinhSua.setText("Chỉnh sửa");
-        pNutChitiet.add(btChinhSua);
-
-        btThem.setText("Thêm");
-        pNutChitiet.add(btThem);
-
-        Xóa.setText("Xóa");
-        pNutChitiet.add(Xóa);
-
-        btSua.setText("Sửa");
-        pNutChitiet.add(btSua);
-
-        btLuu.setText("Lưu");
-        btLuu.addActionListener(new java.awt.event.ActionListener() {
+        btDiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btLuuActionPerformed(evt);
+                btDiemActionPerformed(evt);
             }
         });
-        pNutChitiet.add(btLuu);
+        pNutChitiet.add(btDiem);
+
+        btThemDiem.setText("Thêm điểm");
+        btThemDiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btThemDiemActionPerformed(evt);
+            }
+        });
+        pNutChitiet.add(btThemDiem);
 
         pChiTietHocSinh.add(pNutChitiet);
 
@@ -411,16 +676,17 @@ public class FormQuanLy extends javax.swing.JFrame {
         spBang.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         spBang.setToolTipText("");
         spBang.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        spBang.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         tbBang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Mã Học Sinh", "Tên Học Sinh", "Giới tính", "Ngày sinh"
+                "Mã Học Sinh", "Tên Học Sinh", "Giới tính", "Ngày sinh", "Điểm TK"
             }
         ));
         tbBang.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -432,115 +698,99 @@ public class FormQuanLy extends javax.swing.JFrame {
 
         pBangHS.add(spBang, java.awt.BorderLayout.CENTER);
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel11.setText("Giáo viên chủ nhiệm: ");
-        jPanel2.add(jLabel11);
+        pGV.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        pGV.setLayout(new java.awt.BorderLayout());
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        pSX.setLayout(new java.awt.BorderLayout());
+
+        cbSapxep.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
+        cbSapxep.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A-Z", "Học lực tăng dần", "Học lực giảm dần" }));
+        cbSapxep.setToolTipText("");
+        cbSapxep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                cbSapxepActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField1);
+        pSX.add(cbSapxep, java.awt.BorderLayout.CENTER);
 
-        pBangHS.add(jPanel2, java.awt.BorderLayout.PAGE_START);
+        pGV.add(pSX, java.awt.BorderLayout.EAST);
+
+        pBangHS.add(pGV, java.awt.BorderLayout.PAGE_START);
 
         getContentPane().add(pBangHS, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLuuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btLuuActionPerformed
-
     private void btThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThoatActionPerformed
         if(btThoat.isSelected()){
-
             System.exit(0);
         }
     }//GEN-LAST:event_btThoatActionPerformed
 
-    private void cbHeDaoTaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbHeDaoTaoActionPerformed
-        if(cbKhoi.getItemCount()!=0){
-            cbKhoi.removeAllItems();
-        }
-        if(cbHeDaoTao.getSelectedIndex() != -1){    
-            String tenhe = cbHeDaoTao.getSelectedItem().toString();
-            String sql = "select TENKHOI FROM KHOI, HEDAOTAO where KHOI.MAHE = HEDAOTAO.MAHE AND TENHE = '" + tenhe +"'";
-            try {
-                pst = conn.createStatement();
-                ResultSet rskhoi;
-                rskhoi = pst.executeQuery(sql); 
-                while(rskhoi.next()){
-                    cbKhoi.addItem(rskhoi.getString(1));
-            }
-            rskhoi.close();
-           
-            } catch (SQLException ex) {
-                Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_cbHeDaoTaoActionPerformed
-
-    private void cbHeDaoTaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbHeDaoTaoMouseClicked
-        
-            
-    }//GEN-LAST:event_cbHeDaoTaoMouseClicked
-
-    private void cbHeDaoTaoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbHeDaoTaoMousePressed
-        
-    }//GEN-LAST:event_cbHeDaoTaoMousePressed
-
-    private void cbHeDaoTaoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbHeDaoTaoMouseEntered
-        
-    }//GEN-LAST:event_cbHeDaoTaoMouseEntered
-
     private void cbKhoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbKhoiActionPerformed
-        if(cbLop.getItemCount()!=0)
+        if(cbLop.getItemCount()!=0){
             cbLop.removeAllItems();
+            btThemDiem.setVisible(false);
+        }
+        
         if(cbKhoi.getSelectedIndex() != -1){
             String tenkhoi = cbKhoi.getSelectedItem().toString();
             String sql = "select TENLOP FROM LOP, KHOI where KHOI.MAKHOI = LOP.MAKHOI AND TENKHOI = N'" + tenkhoi +"'";
             try {
-                pst = conn.createStatement();
+                pre = conn.prepareStatement(sql);
                 ResultSet rskhoi;
-                rskhoi = pst.executeQuery(sql); 
+                rskhoi = pre.executeQuery(); 
                 while(rskhoi.next()){
                     cbLop.addItem(rskhoi.getString(1));
             }
             rskhoi.close();
-            pst.cancel();
+            pre.cancel();
             }catch (SQLException ex) {
                     Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }else{
+            btThemDiem.setVisible(false);
+            pBangHS.setVisible(false);
+            pChiTietHocSinh.setVisible(false);
         }
+        cleanCT();
+        cbLop.setSelectedIndex(-1);
     }//GEN-LAST:event_cbKhoiActionPerformed
 
     private void cbLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLopActionPerformed
         dtbBang.setRowCount(0);
         if(cbLop.getSelectedIndex() != -1){
             String tenlop = cbLop.getSelectedItem().toString();
-            String sql = "select MAHOCSINH, TENHOCSINH, GIOITINH, NGAYSINH from LOP, HOCSINH WHERE HOCSINH.MALOP = LOP.MALOP AND TENLOP = N'" + tenlop +"'";
+            String malop = "select MALOP from LOP where TENLOP= N'" + tenlop + "'";
             try {
-                pst = conn.createStatement();
+                pre = conn.prepareStatement(malop);
                 ResultSet rshs;
-                rshs = pst.executeQuery(sql); 
-                
+                rshs = pre.executeQuery();
+                while (rshs.next())
+                    ma = rshs.getString(1);
+                String sql = "select MAHOCSINH, TENHOCSINH, GIOITINH, NGAYSINH, DIEMTK  from LOP, HOCSINH ";
+                sql+= " FULL OUTER JOIN KETQUA ON HOCSINH.MAHOCSINH = KETQUA.MAHS\n" + " WHERE TENLOP = '"+ tenlop +"' AND HOCSINH.MALOP = LOP.MALOP";
+                pre = conn.prepareStatement(sql);
+                rshs = pre.executeQuery();
                 while(rshs.next()){
                     Vector<String> ta = new Vector<String>();
                     ta.add(rshs.getString(1));
                     ta.add(rshs.getString(2));
                     ta.add(rshs.getString(3));
                     ta.add(rshs.getString(4));
+                    ta.add(rshs.getString(5));
                     dtbBang.addRow(ta);
             }
             rshs.close();
-            pst.cancel();
+            pre.cancel();
+            
             }catch (SQLException ex) {
                     Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        cleanCT();
+        pBangHS.setVisible(true);
         
     }//GEN-LAST:event_cbLopActionPerformed
 
@@ -556,24 +806,295 @@ public class FormQuanLy extends javax.swing.JFrame {
         jfLop.setText(cbLop.getSelectedItem().toString());
         String sql = "select DIACHI from HOCSINH WHERE MAHOCSINH = N'" + mahs +"'";
             try {
-                pst = conn.createStatement();
+                pre = conn.prepareStatement(sql);
                 ResultSet rshs;
-                rshs = pst.executeQuery(sql);     
+                rshs = pre.executeQuery();     
                 while(rshs.next()){
-                    
                     taDiaChi.setText(rshs.getString(1));
+                sql = "select DIEMHK1, DIEMHK2, DIEMTK FROM KETQUA WHERE MAHS = '" + jfMaHS.getText() +"'";
+                pre = conn.prepareStatement(sql);
+                ResultSet rs = pre.executeQuery();
+                while(rs.next()){
+                    jfXemHK1.setText(rs.getString(1));
+                    jfXemHK2.setText(rs.getString(2));
+                    jfDiemTK.setText(rs.getString(3));
+                }   
             }
             rshs.close();
-            pst.cancel();
+            pre.cancel();
             }catch (SQLException ex) {
                     Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+        pChiTietHocSinh.setVisible(true);
+        btDiem.setVisible(true);
+        btThemDiem.setVisible(false);
     }//GEN-LAST:event_tbBangMouseClicked
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void cbSapxepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSapxepActionPerformed
+        dtbBang.setRowCount(0);
+        dshs = new ArrayList<HocSinh>();
+        dshs.removeAll(dshs);
+        if(cbSapxep.getSelectedIndex()!=-1){
+            String tenlop = cbLop.getSelectedItem().toString();
+            String sql = " SET QUOTED_IDENTIFIER OFF\n SET ANSI_NULLS ON \n" +
+            " select MAHOCSINH, TENHOCSINH, GIOITINH, NGAYSINH, DIEMTK from LOP, HOCSINH, KETQUA";
+            if(cbSapxep.getSelectedIndex()==0)
+                sql +=   " WHERE HOCSINH.MALOP = LOP.MALOP AND TENLOP = N'" + tenlop +"'" + " and KETQUA.MAHS = MAHOCSINH ORDER BY TENHOCSINH ASC";
+            else if(cbSapxep.getSelectedIndex()==1){
+                sql += " WHERE HOCSINH.MALOP = LOP.MALOP AND TENLOP = N'" + tenlop +"'" + " and KETQUA.MAHS = MAHOCSINH ORDER BY DIEMTK DESC ";
+            }
+            else if(cbSapxep.getSelectedIndex()==2){
+                sql+= " WHERE HOCSINH.MALOP = LOP.MALOP AND TENLOP = N'" + tenlop +"'" + " and KETQUA.MAHS = MAHOCSINH ORDER BY DIEMTK ASC ";
+            }
+            try {
+                pre = conn.prepareStatement(sql);
+                ResultSet rshs;
+                rshs = pre.executeQuery();    
+                while(rshs.next()){
+                    Vector<String> ta = new Vector<String>();
+                    ta.add(rshs.getString(1));
+                    ta.add(rshs.getString(2));
+                    ta.add(rshs.getString(3));
+                    ta.add(rshs.getString(4));
+                    ta.add(""+rshs.getFloat(5));
+                    HocSinh hs = new HocSinh(ta.elementAt(0),ta.elementAt(1),ta.elementAt(2),ta.elementAt(3));
+                    
+                    dshs.add(hs);
+                    dtbBang.addRow(ta);
+            }
+            rshs.close();
+            pre.cancel();
+            
+            }catch (SQLException ex) {
+                    Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+                
+    }//GEN-LAST:event_cbSapxepActionPerformed
+
+    private void btSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchActionPerformed
+        dlSearch.show();
+        dlSearch.setSize(400, 200);
+        dlSearch.setLocationRelativeTo(null);
+        this.setEnabled(false);
+    }//GEN-LAST:event_btSearchActionPerformed
+
+    private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed
+        TrangChu ct = new TrangChu();
+        ct.show();
+        this.hide();
+    }//GEN-LAST:event_btBackActionPerformed
+
+    private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
+        cleanCT();
+        btThemDiem.setVisible(true);
+        btDiem.setVisible(false);
+        btThoat.setVisible(false);
+        btXoa.setVisible(false);
+    }//GEN-LAST:event_btThemActionPerformed
+
+    private void btLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLuuActionPerformed
+        if(CheckMa(jfMaHS.getText())){
+            int i = JOptionPane.showConfirmDialog(null, "Trùng mã học sinh", "Thong bao", JOptionPane.YES_NO_CANCEL_OPTION);
+            if(i == JOptionPane.YES_OPTION){
+                String up = "UPDATE HOCSINH SET TENHOCSINH = ? , MALOP = ?, NGAYSINH = ?, DIACHI = ?, GIOITINH = ? ";
+                up += "where MAHOCSINH = '" + jfMaHS.getText() +"'";
+                try {
+                    pre = conn.prepareStatement(up);
+                    pre.setString(1, jfHoten.getText());
+                    pre.setString(2, ma);
+                    pre.setString(3, jfNgaySinh.getText());
+                    pre.setString(4, taDiaChi.getText());
+                    pre.setString(5, jfGioiTinh.getText());
+                    int a = pre.executeUpdate();
+                    if(a==1){
+                        JOptionPane.showConfirmDialog(null, "Cập nhật thanh cong", "Thong bao", JOptionPane.OK_OPTION);
+                    }
+                    else
+                        JOptionPane.showConfirmDialog(null, "Cập nhật that bai", "Thong bao", JOptionPane.OK_OPTION);
+                } catch (SQLException ex) {
+                    Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else    
+                return;
+        }
+        else{          
+            try {
+                String sql = "Insert into HocSinh (MAHOCSINH ,TENHOCSINH, MALOP, NGAYSINH, DIACHI, GIOITINH) values (?,?,?,?,?,?)";
+                pre = conn.prepareStatement(sql);
+                pre.setString(1, jfMaHS.getText());
+                pre.setString(2, jfHoten.getText());
+                pre.setString(3, ma);
+                pre.setString(4, jfNgaySinh.getText());
+                pre.setString(5, taDiaChi.getText());
+                pre.setString(6, jfGioiTinh.getText());
+                pre.executeUpdate();
+                String kq = "Insert into KetQua (MaHS, MALOP , DiemHK1, DiemHK2) values (?,?,?,?)";
+                pre = conn.prepareStatement(kq);
+                pre.setString(1, jfMaHS.getText());
+                pre.setString(2, ma);
+                pre.setString(3, jfHK1.getText());
+                pre.setString(4, jfHK2.getText());
+                int i = pre.executeUpdate();
+                if(i==1){
+                    JOptionPane.showConfirmDialog(null, "Them thanh cong", "Thong bao", JOptionPane.OK_OPTION);
+                }
+                else
+                    JOptionPane.showConfirmDialog(null, "Them that bai", "Thong bao", JOptionPane.OK_OPTION);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+        loadBang(cbLop.getSelectedItem().toString());
+        btThemDiem.setVisible(false);
+        btDiem.setVisible(true);
+        cleanCT();
+    }//GEN-LAST:event_btLuuActionPerformed
+
+    private void btThemDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemDiemActionPerformed
+        dlDiem.show();
+        this.setEnabled(false);
+    }//GEN-LAST:event_btThemDiemActionPerformed
+
+    private void dlDiemWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dlDiemWindowClosing
+        this.setEnabled(true);
+        dlDiem.hide();
+    }//GEN-LAST:event_dlDiemWindowClosing
+
+    private void dlDiemWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dlDiemWindowActivated
+        dlDiem.setLocationRelativeTo(null);
+        dlDiem.setSize(400,200);
+    }//GEN-LAST:event_dlDiemWindowActivated
+
+    private void btNhapDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNhapDiemActionPerformed
+        this.setEnabled(true);
+        dlDiem.hide();
+    }//GEN-LAST:event_btNhapDiemActionPerformed
+
+    private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
+        String kq = "DELETE KETQUA WHERE MAHS = '" + jfMaHS.getText() + "'";
+        String sql = "DELETE HOCSINH WHERE MAHOCSINH = '" + jfMaHS.getText() + "'";
+        try {
+            pre = conn.prepareStatement(kq);
+            pre.executeUpdate();
+            pre = conn.prepareStatement(sql);
+            int i = pre.executeUpdate();
+            if(i == 1){
+                JOptionPane.showConfirmDialog(null, "Xóa thanh cong", "Thong bao", JOptionPane.OK_OPTION);
+            }
+            else
+                JOptionPane.showConfirmDialog(null, "Xóa thất bại", "Thong bao", JOptionPane.OK_OPTION);
+        } catch (SQLException ex) {
+            Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        loadBang(cbLop.getSelectedItem().toString());
+        cleanCT();
+    }//GEN-LAST:event_btXoaActionPerformed
+
+    private void dlSearchWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dlSearchWindowClosing
+        dlDiem.hide();
+        this.setEnabled(true);
+    }//GEN-LAST:event_dlSearchWindowClosing
+
+    private void btTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimActionPerformed
+        String sql = "select MAHOCSINH, TENHOCSINH, GIOITINH, TENLOP , NGAYSINH, DIACHI, DIEMHK1, DIEMHK2, DIEMTK  from HOCSINH, KETQUA, LOP ";
+        sql += "WHERE MAHOCSINH = MAHS AND HOCSINH.MALOP = LOP.MALOP AND MAHOCSINH = '" + jfSearchMa.getText() +"'";
+        try {
+            pre = conn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while(rs.next()){
+                jfMaHS.setText(rs.getString(1));
+                jfHoten.setText(rs.getString(2));
+                jfGioiTinh.setText(rs.getString(3));
+                jfLop.setText(rs.getString(4));
+                jfNgaySinh.setText(rs.getString(5));
+                taDiaChi.setText(rs.getString(6));
+                jfXemHK1.setText(rs.getString(7));
+                jfXemHK2.setText(rs.getString(8));
+                jfDiemTK.setText(rs.getString(9));
+            }
+            pre.cancel();
+            dlSearch.hide();
+            this.setEnabled(true);
+            pBangHS.setVisible(false);
+            pChiTietHocSinh.setVisible(true);
+            this.requestFocus();
+            cbKhoi.setSelectedIndex(-1);
+            cbLop.setSelectedIndex(-1);
+        } catch (SQLException ex) {
+            Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_btTimActionPerformed
+
+    private void btSuaDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSuaDiemActionPerformed
+        jfXemHK1.setText("");
+        jfXemHK2.setText("");
+        jfXemHK1.requestFocus();
+    }//GEN-LAST:event_btSuaDiemActionPerformed
+
+    private void dlXemDiemWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dlXemDiemWindowActivated
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_dlXemDiemWindowActivated
+
+    private void dlXemDiemWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dlXemDiemWindowClosing
+        dlXemDiem.hide();
+        this.setEnabled(true);
+        this.jfMaHS.requestFocus();
+    }//GEN-LAST:event_dlXemDiemWindowClosing
+
+    private void btDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDiemActionPerformed
+        dlXemDiem.show();
+        dlXemDiem.setSize(400,200);
+        dlXemDiem.setLocationRelativeTo(null);
+        this.setEnabled(false);
+        String sql = "select DIEMHK1, DIEMHK2, DIEMTK FROM KETQUA WHERE MAHS = '" + jfMaHS.getText() +"'";
+        try {
+            pre = conn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while(rs.next()){
+                jfXemHK1.setText(rs.getString(1));
+                jfXemHK2.setText(rs.getString(2));
+                jfDiemTK.setText(rs.getString(3));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_btDiemActionPerformed
+
+    private void btLuuDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLuuDiemActionPerformed
+        String sql = "UPDATE KETQUA SET DIEMHK1 = " + jfXemHK1.getText() + ", DIEMHK2 = " + jfXemHK2.getText();
+        sql += " WHERE MAHS = '" + jfMaHS.getText() + "'";
+        try {
+            pre = conn.prepareStatement(sql);
+            int i = pre.executeUpdate();
+            if(i == 1){
+                JOptionPane.showConfirmDialog(null, "Chỉnh sửa điểm thành công", "Thong bao", JOptionPane.OK_OPTION);
+                dlXemDiem.hide();
+                this.setEnabled(true);
+                this.requestFocus();
+            }
+            else
+                JOptionPane.showConfirmDialog(null, "Chỉnh sửa điểm thất bại", "Thong bao", JOptionPane.OK_OPTION);
+        } catch (SQLException ex) {
+            Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        loadBang(cbLop.getSelectedItem().toString());
+    }//GEN-LAST:event_btLuuDiemActionPerformed
+
+    private void btHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHuyActionPerformed
+        btDiem.setVisible(true);
+        btThemDiem.setVisible(true);
+        btThoat.setVisible(true);
+        btXoa.setVisible(true);
+        this.requestFocus();
+    }//GEN-LAST:event_btHuyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -606,60 +1127,84 @@ public class FormQuanLy extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FormQuanLy().setVisible(true);
-             
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Xóa;
-    private javax.swing.JButton btChinhSua;
+    private javax.swing.JButton btBack;
     private javax.swing.JButton btDiem;
+    private javax.swing.JButton btHuy;
     private javax.swing.JButton btLuu;
-    private javax.swing.JButton btSua;
+    private javax.swing.JButton btLuuDiem;
+    private javax.swing.JButton btNhapDiem;
+    private javax.swing.JButton btSearch;
+    private javax.swing.JButton btSuaDiem;
     private javax.swing.JButton btThem;
+    private javax.swing.JButton btThemDiem;
     private javax.swing.JButton btThoat;
-    private javax.swing.JComboBox<String> cbHeDaoTao;
+    private javax.swing.JButton btTim;
+    private javax.swing.JButton btXoa;
     private javax.swing.JComboBox<String> cbKhoi;
     private javax.swing.JComboBox<String> cbLop;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JFrame jFrame1;
+    private javax.swing.JComboBox<String> cbSapxep;
+    private javax.swing.JDialog dlDiem;
+    private javax.swing.JDialog dlSearch;
+    private javax.swing.JDialog dlXemDiem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jfDiemTK;
     private javax.swing.JTextField jfGioiTinh;
+    private javax.swing.JTextField jfHK1;
+    private javax.swing.JTextField jfHK2;
     private javax.swing.JTextField jfHoten;
     private javax.swing.JTextField jfLop;
     private javax.swing.JTextField jfMaHS;
     private javax.swing.JTextField jfNgaySinh;
+    private javax.swing.JTextField jfSearchMa;
+    private javax.swing.JTextField jfXemHK1;
+    private javax.swing.JTextField jfXemHK2;
     private javax.swing.JPanel pBangHS;
     private javax.swing.JPanel pChiTietHocSinh;
+    private javax.swing.JPanel pChonKhoiLop;
     private javax.swing.JPanel pDiachi;
+    private javax.swing.JPanel pGV;
     private javax.swing.JPanel pGt;
-    private javax.swing.JPanel pHeDaoTao;
     private javax.swing.JPanel pKhoi;
     private javax.swing.JPanel pLop;
     private javax.swing.JPanel pMaHS;
     private javax.swing.JPanel pNgaysinh;
     private javax.swing.JPanel pNutChitiet;
     private javax.swing.JPanel pNutLenh;
+    private javax.swing.JPanel pSX;
     private javax.swing.JPanel pTenHS;
     private javax.swing.JPanel pTenLop;
+    private javax.swing.JPanel pTiTle;
     private javax.swing.JPanel pTop;
     private javax.swing.JScrollPane spBang;
     private javax.swing.JTextArea taDiaChi;
@@ -667,57 +1212,30 @@ public class FormQuanLy extends javax.swing.JFrame {
     private javax.swing.JLabel tfMaHS;
     // End of variables declaration//GEN-END:variables
 
-    private void loadBang(DefaultTableModel t) {
-        String col[] = {"Mã Học Sinh", "Họ tên", "Giới tính", "Ngày sinh"};
-        dtbBang = new DefaultTableModel();  
-        dtbBang.addColumn(col);
-        dtbBang.addRow(t.getDataVector());
-        tbBang.setModel(dtbBang);
-        spBang = new JScrollPane(tbBang);
-        
-    }
-
     private void loadPage(){
         String dbURL = "jdbc:sqlserver://Localhost;databaseName=QL_DSTRUONGHOC;user=sa;password=sa";
         try {
                 conn = getConnection(dbURL);
-                pst = conn.createStatement();
-                String sql = "select TENHE from HEDAOTAO";
-                ResultSet rt = pst.executeQuery(sql);
+                String sql = "select TENKHOI FROM KHOI, HEDAOTAO where KHOI.MAHE = HEDAOTAO.MAHE AND TENHE = N'" + he +"'";
+                pre = conn.prepareStatement(sql);   
+                ResultSet rt = pre.executeQuery();
                 while(rt.next()){
-                    cbHeDaoTao.addItem(rt.getString(1));
+                    cbKhoi.addItem(rt.getString(1));
                 }
                 rt.close();    
-                pst.cancel();
+                pre.cancel();
         } catch (SQLException ex) {
             Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
         }
-        cbHeDaoTao.setSelectedIndex(-1);
         cbKhoi.setSelectedIndex(-1);
         cbLop.setSelectedIndex(-1);
+        
+        
+        cleanCT();
     }
     
     
-    private boolean ktChonHe(boolean t){
-        boolean kq = false;
-        if(t == false){
-            String tenhe = cbHeDaoTao.getSelectedItem().toString();
-            String sql = "select TENKHOI FROM KHOI, HEDAOTAO where KHOI.MAHE = HEDAOTAO.MAHE AND TENHE = '" + tenhe +"'";
-            ResultSet rskhoi;
-            try {
-                rskhoi = pst.executeQuery(sql); 
-                while(rskhoi.next()){
-                    cbKhoi.addItem(rskhoi.getString(1));
-            }
-            rskhoi.close();
-            pst.cancel();
-            chonhe = true;
-            }catch (SQLException ex) {
-                Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return kq;
-    }
+    
     
     public static Connection getConnection(String dbURL) {
         Connection conn = null;
@@ -730,5 +1248,62 @@ public class FormQuanLy extends javax.swing.JFrame {
         }
         return conn;
     }
+    private void cleanCT(){
+        jfMaHS.setText("");
+        taDiaChi.setText("");
+        jfHoten.setText("");
+        jfGioiTinh.setText("");
+        jfLop.setText("");
+        jfNgaySinh.setText("");
+        jfXemHK1.setText("");
+        jfXemHK2.setText("");
+        jfDiemTK.setText("");
+        jfHK1.setText("");
+        jfHK2.setText("");
+        jfMaHS.requestFocus();
+   }
 
+    private void loadBang(String tenlop){
+        dtbBang.setRowCount(0);
+        String malop = "select MALOP from LOP where TENLOP= N'" + tenlop + "'";
+            try {
+                pst = conn.createStatement();
+                ResultSet rshs;
+                rshs = pst.executeQuery(malop);
+                while (rshs.next())
+                    ma = rshs.getString(1);
+                String sql = "select MAHOCSINH, TENHOCSINH, GIOITINH, NGAYSINH, DIEMTK  from LOP, HOCSINH ";
+                sql+= " FULL OUTER JOIN KETQUA ON HOCSINH.MAHOCSINH = KETQUA.MAHS\n" + " WHERE TENLOP = '"+ tenlop +"' AND HOCSINH.MALOP = LOP.MALOP";
+                pre = conn.prepareStatement(sql);
+                rshs = pre.executeQuery();
+                while(rshs.next()){
+                    Vector<String> ta = new Vector<String>();
+                    ta.add(rshs.getString(1));
+                    ta.add(rshs.getString(2));
+                    ta.add(rshs.getString(3));
+                    ta.add(rshs.getString(4));
+                    ta.add(rshs.getString(5));
+                    dtbBang.addRow(ta);
+            }
+            rshs.close();
+            pre.cancel();
+            
+            }catch (SQLException ex) {
+                    Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+    private boolean CheckMa(String mahs){
+        boolean kq = false;
+        String sql = "select MAHOCSINH FROM HOCSINH WHERE MAHOCSINH = '" + mahs + "'";
+        try {
+            pre = conn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while(rs.next()){
+                kq = true;
+            }     
+        } catch (SQLException ex) {
+            Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return kq;
+    }
 }
