@@ -232,6 +232,9 @@ public class FormQuanLy extends javax.swing.JFrame {
         dlDiem.getAccessibleContext().setAccessibleParent(btThemDiem);
 
         dlSearch.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                dlSearchWindowClosed(evt);
+            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 dlSearchWindowClosing(evt);
             }
@@ -256,6 +259,8 @@ public class FormQuanLy extends javax.swing.JFrame {
         jPanel8.add(btTim);
 
         dlSearch.getContentPane().add(jPanel8);
+
+        dlSearch.getAccessibleContext().setAccessibleParent(btSearch);
 
         dlXemDiem.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -491,6 +496,8 @@ public class FormQuanLy extends javax.swing.JFrame {
         tfMaHS.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         tfMaHS.setText("Mã Học Sinh:");
 
+        jfMaHS.setDisabledTextColor(new java.awt.Color(0, 204, 204));
+
         javax.swing.GroupLayout pMaHSLayout = new javax.swing.GroupLayout(pMaHS);
         pMaHS.setLayout(pMaHSLayout);
         pMaHSLayout.setHorizontalGroup(
@@ -516,6 +523,8 @@ public class FormQuanLy extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel6.setText("Họ tên: ");
+
+        jfHoten.setDisabledTextColor(new java.awt.Color(0, 204, 204));
 
         javax.swing.GroupLayout pTenHSLayout = new javax.swing.GroupLayout(pTenHS);
         pTenHS.setLayout(pTenHSLayout);
@@ -543,6 +552,8 @@ public class FormQuanLy extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel8.setText("Giới tính: ");
 
+        jfGioiTinh.setDisabledTextColor(new java.awt.Color(0, 204, 204));
+
         javax.swing.GroupLayout pGtLayout = new javax.swing.GroupLayout(pGt);
         pGt.setLayout(pGtLayout);
         pGtLayout.setHorizontalGroup(
@@ -569,6 +580,8 @@ public class FormQuanLy extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel7.setText("Lớp:");
 
+        jfLop.setDisabledTextColor(new java.awt.Color(0, 204, 204));
+
         javax.swing.GroupLayout pTenLopLayout = new javax.swing.GroupLayout(pTenLop);
         pTenLop.setLayout(pTenLopLayout);
         pTenLopLayout.setHorizontalGroup(
@@ -594,6 +607,8 @@ public class FormQuanLy extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel9.setText("Ngày sinh: ");
+
+        jfNgaySinh.setDisabledTextColor(new java.awt.Color(0, 204, 204));
 
         javax.swing.GroupLayout pNgaysinhLayout = new javax.swing.GroupLayout(pNgaysinh);
         pNgaysinh.setLayout(pNgaysinhLayout);
@@ -623,6 +638,7 @@ public class FormQuanLy extends javax.swing.JFrame {
 
         taDiaChi.setColumns(20);
         taDiaChi.setRows(5);
+        taDiaChi.setDisabledTextColor(new java.awt.Color(0, 204, 204));
         jScrollPane1.setViewportView(taDiaChi);
 
         javax.swing.GroupLayout pDiachiLayout = new javax.swing.GroupLayout(pDiachi);
@@ -828,6 +844,7 @@ public class FormQuanLy extends javax.swing.JFrame {
         pChiTietHocSinh.setVisible(true);
         btDiem.setVisible(true);
         btThemDiem.setVisible(false);
+        edit(false);
     }//GEN-LAST:event_tbBangMouseClicked
 
     private void cbSapxepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSapxepActionPerformed
@@ -891,6 +908,9 @@ public class FormQuanLy extends javax.swing.JFrame {
         btDiem.setVisible(false);
         btThoat.setVisible(false);
         btXoa.setVisible(false);
+        btThem.setVisible(false);
+        btHuy.setVisible(true);
+        edit(true);
     }//GEN-LAST:event_btThemActionPerformed
 
     private void btLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLuuActionPerformed
@@ -995,40 +1015,20 @@ public class FormQuanLy extends javax.swing.JFrame {
     }//GEN-LAST:event_btXoaActionPerformed
 
     private void dlSearchWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dlSearchWindowClosing
-        dlDiem.hide();
-        this.setEnabled(true);
+        
     }//GEN-LAST:event_dlSearchWindowClosing
 
     private void btTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimActionPerformed
-        String sql = "select MAHOCSINH, TENHOCSINH, GIOITINH, TENLOP , NGAYSINH, DIACHI, DIEMHK1, DIEMHK2, DIEMTK  from HOCSINH, KETQUA, LOP ";
-        sql += "WHERE MAHOCSINH = MAHS AND HOCSINH.MALOP = LOP.MALOP AND MAHOCSINH = '" + jfSearchMa.getText() +"'";
-        try {
-            pre = conn.prepareStatement(sql);
-            ResultSet rs = pre.executeQuery();
-            while(rs.next()){
-                jfMaHS.setText(rs.getString(1));
-                jfHoten.setText(rs.getString(2));
-                jfGioiTinh.setText(rs.getString(3));
-                jfLop.setText(rs.getString(4));
-                jfNgaySinh.setText(rs.getString(5));
-                taDiaChi.setText(rs.getString(6));
-                jfXemHK1.setText(rs.getString(7));
-                jfXemHK2.setText(rs.getString(8));
-                jfDiemTK.setText(rs.getString(9));
-            }
-            pre.cancel();
-            dlSearch.hide();
+        cbKhoi.setSelectedIndex(-1);
+        cbLop.setSelectedIndex(-1);
+        if(CheckMa(jfSearchMa.getText())){
+            timHS(jfSearchMa.getText());
             this.setEnabled(true);
-            pBangHS.setVisible(false);
             pChiTietHocSinh.setVisible(true);
-            this.requestFocus();
-            cbKhoi.setSelectedIndex(-1);
-            cbLop.setSelectedIndex(-1);
-        } catch (SQLException ex) {
-            Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
+            jfMaHS.requestFocus();
         }
         
-        
+            
     }//GEN-LAST:event_btTimActionPerformed
 
     private void btSuaDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSuaDiemActionPerformed
@@ -1090,11 +1090,17 @@ public class FormQuanLy extends javax.swing.JFrame {
 
     private void btHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHuyActionPerformed
         btDiem.setVisible(true);
-        btThemDiem.setVisible(true);
+        btThemDiem.setVisible(false);
         btThoat.setVisible(true);
         btXoa.setVisible(true);
         this.requestFocus();
+        btThem.setVisible(true);
+        btHuy.setVisible(false);
     }//GEN-LAST:event_btHuyActionPerformed
+
+    private void dlSearchWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dlSearchWindowClosed
+        
+    }//GEN-LAST:event_dlSearchWindowClosed
 
     /**
      * @param args the command line arguments
@@ -1305,5 +1311,48 @@ public class FormQuanLy extends javax.swing.JFrame {
             Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
         }
         return kq;
+    }
+    private void tim(String ma){
+        
+    
+    }
+    
+    
+    private void timHS(String ma){
+        String sql = "select MAHOCSINH, TENHOCSINH, GIOITINH, TENLOP , NGAYSINH, DIACHI, DIEMHK1, DIEMHK2, DIEMTK from HOCSINH, KETQUA, LOP\n" +
+"WHERE MAHOCSINH = MAHS\n" +
+"AND HOCSINH.MALOP = LOP.MALOP \n" +
+"AND MAHOCSINH = '" + ma +"'";
+        try {
+            pre = conn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while(rs.next()){
+                jfMaHS.setText(rs.getString(1));
+                jfHoten.setText(rs.getString(2));
+                jfGioiTinh.setText(rs.getString(3));
+                jfLop.setText(rs.getString(4));
+                jfNgaySinh.setText(rs.getString(5));
+                taDiaChi.setText(rs.getString(6));
+                jfXemHK1.setText(rs.getString(7));
+                jfXemHK2.setText(rs.getString(8));
+                jfDiemTK.setText(rs.getString(9));
+            }
+            pre.cancel();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    private void edit(boolean t){
+            jfMaHS.setEnabled(t);
+            jfHoten.setEnabled(t);
+            jfGioiTinh.setEnabled(t);
+            jfLop.setEnabled(t);
+            jfNgaySinh.setEnabled(t);
+            taDiaChi.setEnabled(t);
+            jfXemHK1.setEnabled(t);
+            jfXemHK2.setEnabled(t);
+            jfDiemTK.setEnabled(t);
     }
 }
