@@ -51,6 +51,15 @@ public class FormQuanLy extends javax.swing.JFrame {
         dtbBang = (DefaultTableModel)this.tbBang.getModel();
         this.setLocationRelativeTo(null);
         loadPage();
+        btLuu.setEnabled(false);
+        btXoa.setEnabled(false);
+        cbSapxep.setVisible(false);
+        cbLop.setEnabled(false);
+        btSearch.setEnabled(true);
+        spBang.setVisible(false);
+        bthuythongtin.setVisible(false);
+        btsuathongtin.setEnabled(true);
+        btsuathongtin.setVisible(true);
     }
     
     /**
@@ -134,6 +143,8 @@ public class FormQuanLy extends javax.swing.JFrame {
         pNutChitiet = new javax.swing.JPanel();
         btDiem = new javax.swing.JButton();
         btThemDiem = new javax.swing.JButton();
+        btsuathongtin = new javax.swing.JToggleButton();
+        bthuythongtin = new javax.swing.JButton();
         pBangHS = new javax.swing.JPanel();
         spBang = new javax.swing.JScrollPane();
         tbBang = new javax.swing.JTable();
@@ -371,6 +382,7 @@ public class FormQuanLy extends javax.swing.JFrame {
 
         pNutLenh.setBackground(new java.awt.Color(255, 0, 255));
 
+        btThem.setBackground(new java.awt.Color(0, 204, 51));
         btThem.setText("Thêm Học Sinh");
         btThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -379,6 +391,7 @@ public class FormQuanLy extends javax.swing.JFrame {
         });
         pNutLenh.add(btThem);
 
+        btHuy.setBackground(new java.awt.Color(51, 255, 51));
         btHuy.setText("Hủy");
         btHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -387,6 +400,7 @@ public class FormQuanLy extends javax.swing.JFrame {
         });
         pNutLenh.add(btHuy);
 
+        btLuu.setBackground(new java.awt.Color(102, 255, 102));
         btLuu.setText("Lưu");
         btLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -395,6 +409,7 @@ public class FormQuanLy extends javax.swing.JFrame {
         });
         pNutLenh.add(btLuu);
 
+        btXoa.setBackground(new java.awt.Color(0, 255, 0));
         btXoa.setText("Xóa Học Sinh");
         btXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -403,6 +418,7 @@ public class FormQuanLy extends javax.swing.JFrame {
         });
         pNutLenh.add(btXoa);
 
+        btThoat.setBackground(new java.awt.Color(51, 255, 51));
         btThoat.setText("Thoát");
         btThoat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -418,6 +434,8 @@ public class FormQuanLy extends javax.swing.JFrame {
 
         pTiTle.setLayout(new java.awt.BorderLayout());
 
+        btBack.setBackground(new java.awt.Color(0, 204, 102));
+        btBack.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/QuanLyAnh/icon/backspace-arrow.png"))); // NOI18N
         btBack.setText("Back");
         btBack.setMaximumSize(new java.awt.Dimension(91, 39));
@@ -439,6 +457,9 @@ public class FormQuanLy extends javax.swing.JFrame {
 
         pTiTle.add(jPanel5, java.awt.BorderLayout.CENTER);
 
+        btSearch.setBackground(new java.awt.Color(0, 204, 51));
+        btSearch.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btSearch.setForeground(new java.awt.Color(153, 0, 0));
         btSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/QuanLyAnh/icon/magnifier-with-small-handle.png"))); // NOI18N
         btSearch.setText("Search");
         btSearch.setPreferredSize(new java.awt.Dimension(101, 32));
@@ -461,6 +482,8 @@ public class FormQuanLy extends javax.swing.JFrame {
         jLabel2.setText("Chọn Khối: ");
         pKhoi.add(jLabel2);
 
+        cbKhoi.setBackground(new java.awt.Color(0, 204, 255));
+        cbKhoi.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbKhoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbKhoiActionPerformed(evt);
@@ -476,6 +499,8 @@ public class FormQuanLy extends javax.swing.JFrame {
         jLabel3.setText("Chọn Lớp: ");
         pLop.add(jLabel3);
 
+        cbLop.setBackground(new java.awt.Color(0, 204, 204));
+        cbLop.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbLop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbLopActionPerformed(evt);
@@ -496,6 +521,7 @@ public class FormQuanLy extends javax.swing.JFrame {
         tfMaHS.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         tfMaHS.setText("Mã Học Sinh:");
 
+        jfMaHS.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jfMaHS.setDisabledTextColor(new java.awt.Color(0, 204, 204));
 
         javax.swing.GroupLayout pMaHSLayout = new javax.swing.GroupLayout(pMaHS);
@@ -524,6 +550,7 @@ public class FormQuanLy extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel6.setText("Họ tên: ");
 
+        jfHoten.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jfHoten.setDisabledTextColor(new java.awt.Color(0, 204, 204));
 
         javax.swing.GroupLayout pTenHSLayout = new javax.swing.GroupLayout(pTenHS);
@@ -552,6 +579,7 @@ public class FormQuanLy extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel8.setText("Giới tính: ");
 
+        jfGioiTinh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jfGioiTinh.setDisabledTextColor(new java.awt.Color(0, 204, 204));
 
         javax.swing.GroupLayout pGtLayout = new javax.swing.GroupLayout(pGt);
@@ -580,6 +608,7 @@ public class FormQuanLy extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel7.setText("Lớp:");
 
+        jfLop.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jfLop.setDisabledTextColor(new java.awt.Color(0, 204, 204));
 
         javax.swing.GroupLayout pTenLopLayout = new javax.swing.GroupLayout(pTenLop);
@@ -608,6 +637,7 @@ public class FormQuanLy extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel9.setText("Ngày sinh: ");
 
+        jfNgaySinh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jfNgaySinh.setDisabledTextColor(new java.awt.Color(0, 204, 204));
 
         javax.swing.GroupLayout pNgaysinhLayout = new javax.swing.GroupLayout(pNgaysinh);
@@ -682,6 +712,22 @@ public class FormQuanLy extends javax.swing.JFrame {
         });
         pNutChitiet.add(btThemDiem);
 
+        btsuathongtin.setText("Sửa Thông Tin");
+        btsuathongtin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btsuathongtinActionPerformed(evt);
+            }
+        });
+        pNutChitiet.add(btsuathongtin);
+
+        bthuythongtin.setText("Hủy");
+        bthuythongtin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bthuythongtinActionPerformed(evt);
+            }
+        });
+        pNutChitiet.add(bthuythongtin);
+
         pChiTietHocSinh.add(pNutChitiet);
 
         getContentPane().add(pChiTietHocSinh, java.awt.BorderLayout.EAST);
@@ -719,7 +765,9 @@ public class FormQuanLy extends javax.swing.JFrame {
 
         pSX.setLayout(new java.awt.BorderLayout());
 
-        cbSapxep.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
+        cbSapxep.setBackground(new java.awt.Color(255, 204, 0));
+        cbSapxep.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        cbSapxep.setForeground(new java.awt.Color(204, 0, 0));
         cbSapxep.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A-Z", "Học lực tăng dần", "Học lực giảm dần" }));
         cbSapxep.setToolTipText("");
         cbSapxep.addActionListener(new java.awt.event.ActionListener() {
@@ -739,9 +787,9 @@ public class FormQuanLy extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThoatActionPerformed
-        if(btThoat.isSelected()){
+        
             System.exit(0);
-        }
+        
     }//GEN-LAST:event_btThoatActionPerformed
 
     private void cbKhoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbKhoiActionPerformed
@@ -772,6 +820,10 @@ public class FormQuanLy extends javax.swing.JFrame {
         }
         cleanCT();
         cbLop.setSelectedIndex(-1);
+        cbLop.setEnabled(true);
+        cbSapxep.setVisible(false);
+        cbLop.setVisible(true);
+        spBang.setVisible(false);
     }//GEN-LAST:event_cbKhoiActionPerformed
 
     private void cbLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLopActionPerformed
@@ -807,6 +859,9 @@ public class FormQuanLy extends javax.swing.JFrame {
         }
         cleanCT();
         pBangHS.setVisible(true);
+        cbSapxep.setVisible(true);
+        spBang.setVisible(true);
+        
         
     }//GEN-LAST:event_cbLopActionPerformed
 
@@ -844,6 +899,8 @@ public class FormQuanLy extends javax.swing.JFrame {
         pChiTietHocSinh.setVisible(true);
         btDiem.setVisible(true);
         btThemDiem.setVisible(false);
+        btXoa.setEnabled(true);
+        btsuathongtin.setVisible(true);
         edit(false);
     }//GEN-LAST:event_tbBangMouseClicked
 
@@ -894,6 +951,8 @@ public class FormQuanLy extends javax.swing.JFrame {
         dlSearch.setSize(400, 200);
         dlSearch.setLocationRelativeTo(null);
         this.setEnabled(false);
+        bthuythongtin.setVisible(false);
+        btsuathongtin.setVisible(true);
     }//GEN-LAST:event_btSearchActionPerformed
 
     private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed
@@ -910,67 +969,111 @@ public class FormQuanLy extends javax.swing.JFrame {
         btXoa.setVisible(false);
         btThem.setVisible(false);
         btHuy.setVisible(true);
+        pBangHS.setVisible(false);
+        pChiTietHocSinh.setVisible(true);
+        btLuu.setEnabled(true);
+        jfMaHS.requestFocus();
+        btSearch.setEnabled(false);
+        btsuathongtin.setVisible(false);
         edit(true);
     }//GEN-LAST:event_btThemActionPerformed
 
     private void btLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLuuActionPerformed
-        if(CheckMa(jfMaHS.getText())){
-            int i = JOptionPane.showConfirmDialog(null, "Trùng mã học sinh", "Thong bao", JOptionPane.YES_NO_CANCEL_OPTION);
-            if(i == JOptionPane.YES_OPTION){
-                String up = "UPDATE HOCSINH SET TENHOCSINH = ? , MALOP = ?, NGAYSINH = ?, DIACHI = ?, GIOITINH = ? ";
-                up += "where MAHOCSINH = '" + jfMaHS.getText() +"'";
-                try {
-                    pre = conn.prepareStatement(up);
-                    pre.setString(1, jfHoten.getText());
-                    pre.setString(2, ma);
-                    pre.setString(3, jfNgaySinh.getText());
-                    pre.setString(4, taDiaChi.getText());
-                    pre.setString(5, jfGioiTinh.getText());
-                    int a = pre.executeUpdate();
-                    if(a==1){
-                        JOptionPane.showConfirmDialog(null, "Cập nhật thanh cong", "Thong bao", JOptionPane.OK_OPTION);
-                    }
-                    else
-                        JOptionPane.showConfirmDialog(null, "Cập nhật that bai", "Thong bao", JOptionPane.OK_OPTION);
-                } catch (SQLException ex) {
-                    Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            else    
-                return;
-        }
-        else{          
-            try {
-                String sql = "Insert into HocSinh (MAHOCSINH ,TENHOCSINH, MALOP, NGAYSINH, DIACHI, GIOITINH) values (?,?,?,?,?,?)";
-                pre = conn.prepareStatement(sql);
-                pre.setString(1, jfMaHS.getText());
-                pre.setString(2, jfHoten.getText());
-                pre.setString(3, ma);
-                pre.setString(4, jfNgaySinh.getText());
-                pre.setString(5, taDiaChi.getText());
-                pre.setString(6, jfGioiTinh.getText());
-                pre.executeUpdate();
-                String kq = "Insert into KetQua (MaHS, MALOP , DiemHK1, DiemHK2) values (?,?,?,?)";
-                pre = conn.prepareStatement(kq);
-                pre.setString(1, jfMaHS.getText());
-                pre.setString(2, ma);
-                pre.setString(3, jfHK1.getText());
-                pre.setString(4, jfHK2.getText());
-                int i = pre.executeUpdate();
-                if(i==1){
-                    JOptionPane.showConfirmDialog(null, "Them thanh cong", "Thong bao", JOptionPane.OK_OPTION);
-                }
-                else
-                    JOptionPane.showConfirmDialog(null, "Them that bai", "Thong bao", JOptionPane.OK_OPTION);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        }
-        loadBang(cbLop.getSelectedItem().toString());
+//        if(CheckMa(jfMaHS.getText())){
+//            int i = JOptionPane.showConfirmDialog(null, "Trùng mã học sinh", "Thong bao", JOptionPane.YES_NO_CANCEL_OPTION);
+//            if(i == JOptionPane.YES_OPTION){
+//                String up = "UPDATE HOCSINH SET TENHOCSINH = ? , MALOP = ?, NGAYSINH = ?, DIACHI = ?, GIOITINH = ? ";
+//                up += "where MAHOCSINH = '" + jfMaHS.getText() +"'";
+//                try {
+//                    pre = conn.prepareStatement(up);
+//                    pre.setString(1, jfHoten.getText());
+//                    pre.setString(2, ma);
+//                    pre.setString(3, jfNgaySinh.getText());
+//                    pre.setString(4, taDiaChi.getText());
+//                    pre.setString(5, jfGioiTinh.getText());
+//                    int a = pre.executeUpdate();
+//                    if(a==1){
+//                        JOptionPane.showConfirmDialog(null, "Cập nhật thanh cong", "Thong bao", JOptionPane.OK_OPTION);
+//                    }
+//                    else
+//                        JOptionPane.showConfirmDialog(null, "Cập nhật that bai", "Thong bao", JOptionPane.OK_OPTION);
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//            else    
+//                return;
+//        }
+//        else{          
+//            try {
+//                String sql = "Insert into HocSinh (MAHOCSINH ,TENHOCSINH, MALOP, NGAYSINH, DIACHI, GIOITINH) values (?,?,?,?,?,?)";
+//                pre = conn.prepareStatement(sql);
+//                pre.setString(1, jfMaHS.getText());
+//                pre.setString(2, jfHoten.getText());
+//                pre.setString(3, ma);
+//                pre.setString(4, jfNgaySinh.getText());
+//                pre.setString(5, taDiaChi.getText());
+//                pre.setString(6, jfGioiTinh.getText());
+//                pre.executeUpdate();
+//                String kq = "Insert into KetQua (MaHS, MALOP , DiemHK1, DiemHK2) values (?,?,?,?)";
+//                pre = conn.prepareStatement(kq);
+//                pre.setString(1, jfMaHS.getText());
+//                pre.setString(2, ma);
+//                pre.setString(3, jfHK1.getText());
+//                pre.setString(4, jfHK2.getText());
+//                int i = pre.executeUpdate();
+//                if(i==1){
+//                    JOptionPane.showConfirmDialog(null, "Them thanh cong", "Thong bao", JOptionPane.OK_OPTION);
+//                }
+//                else
+//                    JOptionPane.showConfirmDialog(null, "Them that bai", "Thong bao", JOptionPane.OK_OPTION);
+//
+//            } catch (SQLException ex) {
+//                Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            
+//        }
+//        loadBang(cbLop.getSelectedItem().toString());
         btThemDiem.setVisible(false);
         btDiem.setVisible(true);
+        
+         
+        jfXemHK2.setEnabled(false);
+        jfDiemTK.setEnabled(false);
+        jfGioiTinh.setEnabled(false);
+        jfLop.setEnabled(false);
+        jfMaHS.setEnabled(false);
+        jfNgaySinh.setEnabled(false);
+        jfXemHK1.setEnabled(false);
+        taDiaChi.setEnabled(false);
+        jfHoten.setEnabled(false);
+        jfDiemTK.setEnabled(false);
+        btLuu.setEnabled(false);
+        btXoa.setEnabled(false);
+        
+        
+        
+       
+        btThoat.setVisible(true);
+        btXoa.setVisible(true);
+        btThem.setVisible(true);
+        btHuy.setVisible(true);
+        pBangHS.setVisible(false);
+        btSearch.setEnabled(true);
+        cbKhoi.setSelectedIndex(-1);
+        cbLop.setSelectedIndex(-1);
+        cbLop.setEnabled(false);
+        cbSapxep.setVisible(false);
+        spBang.setVisible(false);
+        pChiTietHocSinh.setVisible(true);
+        
+        btThem.setEnabled(true);
+        btThoat.setEnabled(true);
+        
+        
+        btsuathongtin.setEnabled(true);
+        bthuythongtin.setVisible(false);
+        btsuathongtin.setVisible(true);
         cleanCT();
     }//GEN-LAST:event_btLuuActionPerformed
 
@@ -1027,6 +1130,21 @@ public class FormQuanLy extends javax.swing.JFrame {
             pChiTietHocSinh.setVisible(true);
             jfMaHS.requestFocus();
         }
+        pBangHS.setVisible(false);
+        jfXemHK2.setEnabled(false);
+        jfDiemTK.setEnabled(false);
+        jfGioiTinh.setEnabled(false);
+        jfLop.setEnabled(false);
+        jfMaHS.setEnabled(false);
+        jfNgaySinh.setEnabled(false);
+        jfXemHK1.setEnabled(false);
+        taDiaChi.setEnabled(false);
+        jfHoten.setEnabled(false);
+        jfDiemTK.setEnabled(false);
+        btLuu.setEnabled(false);
+        btXoa.setEnabled(false);
+        
+                
         
             
     }//GEN-LAST:event_btTimActionPerformed
@@ -1035,6 +1153,11 @@ public class FormQuanLy extends javax.swing.JFrame {
         jfXemHK1.setText("");
         jfXemHK2.setText("");
         jfXemHK1.requestFocus();
+        jfXemHK1.setEnabled(true);
+        jfXemHK2.setEnabled(true);
+        btSuaDiem.setEnabled(false);
+        btLuuDiem.setEnabled(true);
+        
     }//GEN-LAST:event_btSuaDiemActionPerformed
 
     private void dlXemDiemWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dlXemDiemWindowActivated
@@ -1064,7 +1187,10 @@ public class FormQuanLy extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        jfXemHK1.setEnabled(false);
+        jfXemHK2.setEnabled(false);
+        btSuaDiem.setEnabled(true);
+        btLuuDiem.setEnabled(false);
         
     }//GEN-LAST:event_btDiemActionPerformed
 
@@ -1086,21 +1212,73 @@ public class FormQuanLy extends javax.swing.JFrame {
             Logger.getLogger(FormQuanLy.class.getName()).log(Level.SEVERE, null, ex);
         }  
         loadBang(cbLop.getSelectedItem().toString());
+        
     }//GEN-LAST:event_btLuuDiemActionPerformed
 
     private void btHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHuyActionPerformed
+        pChiTietHocSinh.setVisible(false);
         btDiem.setVisible(true);
         btThemDiem.setVisible(false);
         btThoat.setVisible(true);
         btXoa.setVisible(true);
         this.requestFocus();
         btThem.setVisible(true);
-        btHuy.setVisible(false);
+        btLuu.setEnabled(false);
+        btXoa.setEnabled(false);
+        cbSapxep.setVisible(false);
+        cbLop.setVisible(false);
+       
+        btSearch.setEnabled(true);
+        
+        spBang.setVisible(false);
+        cbKhoi.setSelectedIndex(-1);
+       btsuathongtin.setEnabled(true);
+       cbLop.setEnabled(false);
+        
+        
     }//GEN-LAST:event_btHuyActionPerformed
 
     private void dlSearchWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dlSearchWindowClosed
         
     }//GEN-LAST:event_dlSearchWindowClosed
+
+    private void btsuathongtinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btsuathongtinActionPerformed
+        // TODO add your handling code here:
+       jfMaHS.setEnabled(true);
+       jfHoten.setEnabled(true);
+       jfGioiTinh.setEnabled(true);
+       jfLop.setEnabled(true);
+       jfNgaySinh.setEnabled(true);
+       taDiaChi.setEnabled(true);
+       btLuu.setEnabled(true);
+       bthuythongtin.setVisible(true);
+       btsuathongtin.setEnabled(false);
+       bthuythongtin.setEnabled(true);
+       btXoa.setEnabled(false);
+       btThem.setEnabled(false);
+      btThoat.setEnabled(false);
+      btSearch.setEnabled(false);
+        
+    }//GEN-LAST:event_btsuathongtinActionPerformed
+
+    private void bthuythongtinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthuythongtinActionPerformed
+        // TODO add your handling code here:
+        bthuythongtin.setVisible(false);
+        jfMaHS.setEnabled(false);
+       jfHoten.setEnabled(false);
+       jfGioiTinh.setEnabled(false);
+       jfLop.setEnabled(false);
+       jfNgaySinh.setEnabled(false);
+       taDiaChi.setEnabled(false);
+       btLuu.setEnabled(false);
+       bthuythongtin.setEnabled(false);
+      btsuathongtin.setEnabled(true);
+         btXoa.setEnabled(true);
+       btThem.setEnabled(true);
+        btThoat.setEnabled(true);
+      btSearch.setEnabled(true);
+      btXoa.setEnabled(false);
+    }//GEN-LAST:event_bthuythongtinActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1151,6 +1329,8 @@ public class FormQuanLy extends javax.swing.JFrame {
     private javax.swing.JButton btThoat;
     private javax.swing.JButton btTim;
     private javax.swing.JButton btXoa;
+    private javax.swing.JButton bthuythongtin;
+    private javax.swing.JToggleButton btsuathongtin;
     private javax.swing.JComboBox<String> cbKhoi;
     private javax.swing.JComboBox<String> cbLop;
     private javax.swing.JComboBox<String> cbSapxep;
@@ -1219,9 +1399,16 @@ public class FormQuanLy extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void loadPage(){
-        String dbURL = "jdbc:sqlserver://Localhost;databaseName=QL_DSTRUONGHOC;user=sa;password=sa";
+        
+        
+         String strServer="DESKTOP-MIDDA7H\\SQLEXPRESS";
+         String strDatabase="QL_DSTRUONGHOC";
+        String connectionURL="jdbc:sqlserver://"+ strServer
+                + ":1433;databaseName="+strDatabase
+                + ";user=sa; password=12345 ";
+             
         try {
-                conn = getConnection(dbURL);
+                conn = getConnection(connectionURL);
                 String sql = "select TENKHOI FROM KHOI, HEDAOTAO where KHOI.MAHE = HEDAOTAO.MAHE AND TENHE = N'" + he +"'";
                 pre = conn.prepareStatement(sql);   
                 ResultSet rt = pre.executeQuery();
